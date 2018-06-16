@@ -15,10 +15,11 @@ public class TodoListApplication {
     @Bean
     CommandLineRunner setTestData(NoteRepository repo){
         return args -> {
-            repo.save(new Note("스프링부트 1주차","프로젝트를 생성하였습니다", "2018-06-04"));
-            repo.save(new Note("스프링부트 2주차","기본적인 CRUD를 구현하였습니다.", "2018-06-11"));
-            repo.save(new Note("스프링부트 3주차","보안 기능을 추가하였습니다.", "2018-06-18"));
-            repo.save(new Note("스프링부트 4주차","추가 기능을 구현하였습니다.", "2018-06-25"));
+
+            repo.save(new Note(1L,"스프링부트 1주차","프로젝트를 생성하였습니다",null,null ));
+            repo.save(new Note(2L,"스프링부트 2주차","기본적인 CRUD를 구현하였습니다.",null, null));
+            repo.save(new Note(3L,"스프링부트 3주차","보안 기능을 추가하였습니다.", null, null));
+            repo.save(new Note(4L,"스프링부트 4주차","추가 기능을 구현하였습니다.", null, null));
         };
     }
 

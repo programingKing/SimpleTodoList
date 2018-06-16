@@ -32,13 +32,12 @@ public class Note {
     @LastModifiedDate
     private Date updatedAt;
 
-    @Transient
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-    public Note(String subject, String content, String createDate) throws ParseException {
+    public Note(Long id,String subject, String content, Date createAt, Date updatedAt) throws ParseException {
+        this.id  = id;
         this.subject = subject;
         this.content = content;
-        this.createAt = dateFormat.parse(createDate);
+        this.createAt = createAt;
+        this.updatedAt = updatedAt;
     }
 
     public Note() {
