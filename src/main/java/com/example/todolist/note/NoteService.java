@@ -1,7 +1,7 @@
 package com.example.todolist.note;
 
+import com.example.todolist.common.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +16,11 @@ public class NoteService {
         return this.noteRepository.save(note);
     }
 
-    public Note getNoteById(Long noteId) {
+    public Note getNoteById(Long noteId) throws EntityNotFoundException{
+        if(noteRepository.findById(noteId) == null) {
+            throw new EntityNotFoundException(Note.class, "noteId", noteId.toString());
+        }
+
         return noteRepository.findById(noteId);
     }
 
@@ -24,16 +28,21 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public Note updateNote(Note note){
+    public Note updateNote(Note note) throws EntityNotFoundException {
         // TODO: 2018-06-11 유효성 검사 예외처리 
         if(noteRepository.findById(note.getId()) == null){
-            return null; 
+            throw new EntityNotFoundException(Note.class, "noteId" , note.getId().toString() );
         }
         return noteRepository.save(note);
     }
 
-    public ResponseEntity deleteNote(Long noteId) {
+    public boolean deleteNote(Long noteId) throws EntityNotFoundException {
+
+        if(noteRepository.findById(noteId) == null) {
+            throw new EntityNotFoundException(Note.class, "noteId", noteId.toString());
+        }
         noteRepository.delete(noteId);
-        return ResponseEntity.ok().build();
+
+        return true;
     }
 }

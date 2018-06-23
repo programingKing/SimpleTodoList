@@ -1,5 +1,6 @@
 package com.example.todolist.note;
 
+import com.example.todolist.common.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class NoteController {
     }
 
     @GetMapping("/{id}")
-    public Object getNote(@PathVariable(value = "id") Long noteId){
+    public Object getNote(@PathVariable(value = "id") Long noteId) throws EntityNotFoundException {
         return noteService.getNoteById(noteId);
     }
 
@@ -28,14 +29,13 @@ public class NoteController {
     }
 
     @PutMapping("/{id}")
-    public Object updateNote(@PathVariable(value = "id") Long noteId, @RequestBody Note note){
+    public Object updateNote(@PathVariable(value = "id") Long noteId, @RequestBody Note note) throws EntityNotFoundException {
         note.setId(noteId);
         return noteService.updateNote(note);
     }
 
     @DeleteMapping("/{id}")
-    public Object deleteNote(@PathVariable(value = "id") Long noteId){
+    public Object deleteNote(@PathVariable(value = "id") Long noteId) throws EntityNotFoundException {
         return noteService.deleteNote(noteId);
     }
-
 }
